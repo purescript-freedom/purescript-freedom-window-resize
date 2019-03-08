@@ -1,0 +1,30 @@
+{
+  "name": "purescript-freedom-window-resize",
+  "license": "MIT",
+  "homepage": "https://github.com/purescript-freedom/purescript-freedom-window-resize",
+  "authors": [
+    "Shinya Takahashi <s.takahashi313@gmail.com>"
+  ],
+  "description": "Subscription of resizing window for purescript-freedom",
+  "keywords": [
+    "purescript",
+    "virtual-dom",
+    "ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript-freedom/purescript-freedom-window-resize.git"
+  },
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-freedom": "^0.5.0"
+  }
+}
