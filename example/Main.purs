@@ -2,14 +2,14 @@ module Main where
 
 import Prelude
 
+import Effect (Effect)
+import Effect.Class (liftEffect)
 import Freedom as Freedom
 import Freedom.Markup as H
-import Freedom.WindowResize (windowResize)
 import Freedom.Subscription (Subscription)
 import Freedom.TransformF.Simple (VQueryF, transformF, reduce)
 import Freedom.VNode (VNode)
-import Effect (Effect)
-import Effect.Class (liftEffect)
+import Freedom.WindowResize (windowResize)
 import Web.HTML (window)
 import Web.HTML.Window as W
 
