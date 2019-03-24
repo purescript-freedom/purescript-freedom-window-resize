@@ -8,8 +8,16 @@
 
 ## Installation
 
+### Bower
+
 ```
-bower install purescript-freedom-window-resize
+$ bower install purescript-freedom-window-resize
+```
+
+### Spago
+
+```
+$ spago install freedom-window-resize
 ```
 
 ## Documentation
