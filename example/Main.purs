@@ -3,12 +3,9 @@ module Main where
 import Prelude
 
 import Effect (Effect)
-import Effect.Class (liftEffect)
 import Freedom as Freedom
 import Freedom.Markup as H
-import Freedom.Subscription (Subscription)
-import Freedom.TransformF.Simple (VQueryF, transformF, reduce)
-import Freedom.VNode (VNode)
+import Freedom.UI (VNode, Subscription)
 import Freedom.WindowResize (windowResize)
 import Web.HTML (window)
 import Web.HTML.Window as W
@@ -20,10 +17,6 @@ type WindowSize =
 
 type State = WindowSize
 
-type Sub = Subscription VQueryF State
-
-type Html = VNode VQueryF State
-
 main :: Effect Unit
 main = do
   initialState <- windowSize
@@ -31,7 +24,6 @@ main = do
     { selector: "#app"
     , initialState
     , subscriptions: [ windowResize' ]
-    , transformF
     , view
     }
 
@@ -41,15 +33,14 @@ windowSize =
     <$> (window >>= W.innerWidth)
     <*> (window >>= W.innerHeight)
 
-windowResize' :: Sub
-windowResize' = windowResize do
-  state <- liftEffect $ windowSize
-  reduce $ const state
+windowResize' :: Subscription State
+windowResize' = windowResize \query ->
+  windowSize >>= const >>> query.reduce
 
-view :: State -> Html
+view :: State -> VNode State
 view { innerWidth, innerHeight } =
-  H.el $ H.div # H.kids
-    [ H.el $ H.h1 # H.kids [ H.t "WindowResize Demo" ]
-    , H.el $ H.p # H.kids [ H.t $ "Width: " <> show innerWidth ]
-    , H.el $ H.p # H.kids [ H.t $ "Height: " <> show innerHeight ]
+  H.div # H.kids
+    [ H.h1 # H.kids [ H.t "WindowResize Demo" ]
+    , H.p # H.kids [ H.t $ "Width: " <> show innerWidth ]
+    , H.p # H.kids [ H.t $ "Height: " <> show innerHeight ]
     ]
